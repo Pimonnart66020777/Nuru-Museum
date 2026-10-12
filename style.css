@@ -1,0 +1,756 @@
+/* ==========================================================================
+   GRURU MUSEUM — Design System & Stylesheet (style.css)
+   Theme: "New Knowledge. New Storytelling. Built for Everyday Living."
+   Concept: Future Archaeology (Modern Art Gallery × Sci-Fi Lab)
+   ========================================================================== */
+
+:root {
+  /* Base Palette (70%) */
+  --gr-void: #0B0B0F;
+  --gr-graphite: #17171F;
+  --gr-graphite-card: #1D1D28;
+  --gr-graphite-light: #252533;
+  --gr-grid: #2C2C3A;
+  --gr-fog: #8A8A9E;
+  --gr-paper: #F2EDE3;
+
+  /* Brand Accents (10%) */
+  --gr-lime: #D7FF3A;      /* Primary Identity & CTA */
+  --gr-ember: #FF5A1F;     /* Past, Era Tags, Hard Shadows */
+  --gr-violet: #8C6BFF;    /* Tech & Future */
+  --gr-cyan: #2EE6FF;      /* Data & Science */
+
+  /* Category Palette (Graph Nodes) */
+  --cat-sci: #2EE6FF;      /* Science (Circle) */
+  --cat-hist: #FF5A1F;     /* History (Hexagon) */
+  --cat-tech: #8C6BFF;     /* Technology (Square) */
+  --cat-cult: #FFC233;     /* Culture & Wisdom (Triangle) */
+  --cat-bio: #34E89E;      /* Nature & Life (Diamond) */
+  --cat-art: #FF5FA2;      /* Art & Design (Ring) */
+
+  /* Status Colors */
+  --status-success: #34E89E;
+  --status-warning: #FFC233;
+  --status-alert: #FF3B4E;
+
+  /* Gradient */
+  --gr-time-warp: linear-gradient(135deg, #FF5A1F 0%, #8C6BFF 100%);
+  --gr-glow-lime: 0 0 24px rgba(215, 255, 58, 0.35);
+  --gr-glow-cyan: 0 0 24px rgba(46, 230, 255, 0.35);
+
+  /* Typography */
+  --font-display: 'Chakra Petch', sans-serif;
+  --font-body: 'IBM Plex Sans Thai', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Spacing Base-8 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+  --sp-6: 48px;
+  --sp-7: 64px;
+  --sp-8: 96px;
+  --sp-9: 128px;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--gr-void);
+  color: var(--gr-paper);
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-x: hidden;
+  background-color: var(--gr-void);
+  color: var(--gr-paper);
+  position: relative;
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  color: var(--gr-paper);
+}
+
+p {
+  color: #cfcbd4;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--gr-lime);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 1. Specimen Grid Background */
+.specimen-grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(44, 44, 58, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(44, 44, 58, 0.4) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.specimen-grid-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, transparent 20%, rgba(11, 11, 15, 0.95) 90%);
+}
+
+/* Subtle Scanline Overlay */
+.scanline-layer {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.2;
+  z-index: 1;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--sp-4);
+  position: relative;
+  z-index: 2;
+}
+
+/* 2. HUD Top Navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 72px;
+  background: rgba(11, 11, 15, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--gr-grid);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  border: 1px solid var(--gr-grid);
+  box-shadow: 0 0 12px rgba(215, 255, 58, 0.25);
+  object-fit: cover;
+}
+
+.brand-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--gr-paper);
+  letter-spacing: 1px;
+}
+
+.brand-title span {
+  color: var(--gr-lime);
+}
+
+.brand-tagline {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--gr-fog);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--gr-paper);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--gr-lime);
+  text-decoration: none;
+}
+
+.nav-link .hall-num {
+  color: var(--gr-fog);
+  font-size: 11px;
+}
+
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 3. Primary Button (Chamfered Lime CTA) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gr-lime);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: none;
+  cursor: pointer;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s;
+}
+
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--gr-ember);
+  text-decoration: none;
+  color: #000;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gr-graphite);
+  color: var(--gr-paper);
+  border: 1px solid var(--gr-grid);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  cursor: pointer;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--gr-graphite-light);
+  border-color: var(--gr-lime);
+  color: var(--gr-lime);
+  text-decoration: none;
+}
+
+/* 4. Specimen Label HUD Component */
+.specimen-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gr-fog);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-2);
+}
+
+.specimen-badge {
+  background: var(--gr-grid);
+  color: var(--gr-lime);
+  padding: 2px 8px;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+.specimen-label.cyan .specimen-badge { color: var(--gr-cyan); }
+.specimen-label.ember .specimen-badge { color: var(--gr-ember); }
+.specimen-label.violet .specimen-badge { color: var(--gr-violet); }
+
+/* 5. Chamfered HUD Card */
+.hud-card {
+  background: var(--gr-graphite);
+  border: 1px solid var(--gr-grid);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  padding: var(--sp-4);
+  position: relative;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+
+.hud-card:hover {
+  border-color: rgba(215, 255, 58, 0.5);
+  transform: translateY(-2px);
+}
+
+.hud-card.glow-lime {
+  border-color: var(--gr-lime);
+  box-shadow: 0 0 20px rgba(215, 255, 58, 0.15);
+}
+
+/* 6. Hero Section */
+.hero-section {
+  padding: var(--sp-7) 0 var(--sp-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.15;
+  margin-bottom: var(--sp-3);
+}
+
+.time-warp-text {
+  background: var(--gr-time-warp);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  color: var(--gr-fog);
+  margin-bottom: var(--sp-5);
+  max-width: 620px;
+}
+
+.hero-metrics {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+  flex-wrap: wrap;
+}
+
+.metric-chip {
+  background: var(--gr-graphite);
+  border: 1px solid var(--gr-grid);
+  border-left: 3px solid var(--gr-lime);
+  padding: 12px 20px;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.metric-val {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gr-lime);
+  line-height: 1;
+}
+
+.metric-lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gr-fog);
+  text-transform: uppercase;
+}
+
+.hero-media-wrapper {
+  position: relative;
+}
+
+.hero-image-card {
+  border: 1px solid var(--gr-grid);
+  background: #000;
+  clip-path: polygon(24px 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%, 0 24px);
+  box-shadow: 0 0 35px rgba(215, 255, 58, 0.15);
+  overflow: hidden;
+}
+
+.hero-image-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hero-image-card:hover img {
+  transform: scale(1.02);
+}
+
+/* 7. Section Header */
+.section-header {
+  margin-bottom: var(--sp-5);
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: var(--sp-2);
+}
+
+.section-desc {
+  color: var(--gr-fog);
+  font-size: 1.05rem;
+  max-width: 720px;
+}
+
+/* 8. HALL 01: Exhibitions (5-Step Framework) */
+.exhibitions-section {
+  padding: var(--sp-7) 0;
+  border-top: 1px solid var(--gr-grid);
+}
+
+.exhibitions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+.exhibition-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ex-card-thumb {
+  height: 200px;
+  background: #000;
+  border-bottom: 1px solid var(--gr-grid);
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+}
+
+.ex-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.exhibition-card:hover .ex-card-thumb img {
+  transform: scale(1.05);
+}
+
+.ex-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(11, 11, 15, 0.85);
+  border: 1px solid var(--gr-grid);
+  color: var(--gr-lime);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.ex-card-body {
+  padding: var(--sp-4);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ex-card-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--sp-2);
+}
+
+.ex-pipeline-steps {
+  display: flex;
+  gap: 4px;
+  margin: var(--sp-3) 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.step-pill {
+  background: var(--gr-graphite-light);
+  padding: 2px 6px;
+  color: var(--gr-fog);
+  border-radius: 2px;
+}
+
+.step-pill.active {
+  background: rgba(215, 255, 58, 0.15);
+  color: var(--gr-lime);
+  border: 1px solid var(--gr-lime);
+}
+
+/* 9. HALL 02: Data Booming Interactive Engine */
+.booming-section {
+  padding: var(--sp-7) 0;
+  background: rgba(17, 17, 24, 0.4);
+  border-top: 1px solid var(--gr-grid);
+}
+
+.booming-deck {
+  background: #08080c;
+  border: 1px solid var(--gr-grid);
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  position: relative;
+  overflow: hidden;
+  height: 560px;
+}
+
+#booming-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.booming-hud-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 20;
+  background: rgba(11, 11, 15, 0.9);
+  padding: 10px 18px;
+  border: 1px solid var(--gr-grid);
+  backdrop-filter: blur(8px);
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
+
+.booming-stats-overlay {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gr-fog);
+  background: rgba(11, 11, 15, 0.85);
+  padding: 12px 18px;
+  border: 1px solid var(--gr-grid);
+}
+
+/* 10. HALL 03: Interactive Knowledge Graph */
+.graph-section {
+  padding: var(--sp-7) 0;
+  border-top: 1px solid var(--gr-grid);
+}
+
+.graph-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+
+.category-tags-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cat-btn {
+  background: var(--gr-graphite);
+  border: 1px solid var(--gr-grid);
+  color: var(--gr-paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+
+.cat-btn.active, .cat-btn:hover {
+  background: var(--gr-graphite-light);
+  border-color: var(--cat-color);
+  color: var(--cat-color);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.search-input-wrapper {
+  position: relative;
+  min-width: 280px;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--gr-graphite);
+  border: 1px solid var(--gr-grid);
+  color: var(--gr-paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 14px;
+  outline: none;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.search-input:focus {
+  border-color: var(--gr-lime);
+}
+
+.graph-canvas-container {
+  height: 600px;
+  border: 1px solid var(--gr-grid);
+  background: #09090D;
+  position: relative;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  overflow: hidden;
+}
+
+#main-graph-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Detail Modal / Slide-over */
+.node-detail-panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 360px;
+  background: rgba(23, 23, 31, 0.95);
+  border: 1px solid var(--gr-lime);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), var(--gr-glow-lime);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  z-index: 50;
+  display: none;
+}
+
+.node-detail-panel.visible {
+  display: block;
+  animation: slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slide-in {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* 11. HALL 04: Everyday Lab & Takeaways */
+.takeaway-section {
+  padding: var(--sp-7) 0;
+  border-top: 1px solid var(--gr-grid);
+}
+
+.takeaway-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+.takeaway-card {
+  background: var(--gr-graphite);
+  border: 1px solid var(--gr-grid);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 3px solid var(--gr-lime);
+}
+
+.takeaway-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gr-lime);
+  margin-bottom: 6px;
+}
+
+.takeaway-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.takeaway-action-tip {
+  background: rgba(11, 11, 15, 0.6);
+  border-left: 2px solid var(--gr-lime);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  margin: 12px 0;
+  color: var(--gr-paper);
+}
+
+/* 12. Footer */
+.footer {
+  border-top: 1px solid var(--gr-grid);
+  padding: var(--sp-7) 0 var(--sp-5);
+  background: #07070a;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--sp-5);
+  margin-bottom: var(--sp-6);
+}
+
+.footer-copy {
+  border-top: 1px solid var(--gr-grid);
+  padding-top: var(--sp-4);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gr-fog);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .exhibitions-grid { grid-template-columns: 1fr 1fr; }
+  .takeaway-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .exhibitions-grid { grid-template-columns: 1fr; }
+  .takeaway-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
